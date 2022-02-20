@@ -120,22 +120,22 @@ namespace LottoGeneratorService
         }
 
 
-        public static Int32[] ComputeNumberSet(int NumbersInSet, int Min, int Max, int Bits, decimal SpreadPercent = 10, bool Sort = true)
+        public static Int32[] ComputeNumberSet(int NumbersPerGroup, int Min, int Max, int Bits, decimal divergence = 10, bool Sort = true)
         {
-            Int32[] FinalArray = new Int32[NumbersInSet];
-            Int32[] NumArray = new Int32[NumbersInSet];
+            Int32[] FinalArray = new Int32[NumbersPerGroup];
+            Int32[] NumArray = new Int32[NumbersPerGroup];
 
             Int32 total = FinalArray.Sum();
 
-            int MiddleSum = (NumbersInSet * Max) / 2; //compute the maximum sum for the numbers in the set, then divide by 2
-            int LowBound = Convert.ToInt32(MiddleSum * (1 - SpreadPercent / 100)); //if, say 10%, then take 10/100 = 0.1 and subtract from 1 to get 0.9, then multiply
-            int HighBound = Convert.ToInt32(MiddleSum * (1 + SpreadPercent / 100));//if, say 10%, then take 10/100 = 0.1 and add to 1 to get 1.1, then multiply
+            int MiddleSum = (NumbersPerGroup * Max) / 2; //compute the maximum sum for the numbers in the set, then divide by 2
+            int LowBound = Convert.ToInt32(MiddleSum * (1 - divergence / 100)); //if, say 10%, then take 10/100 = 0.1 and subtract from 1 to get 0.9, then multiply
+            int HighBound = Convert.ToInt32(MiddleSum * (1 + divergence / 100));//if, say 10%, then take 10/100 = 0.1 and add to 1 to get 1.1, then multiply
             int num = 0;
 
             //test if set of numbers is not within the boundaries or does not have a good odd/even number ratio - if true generate a set until it meets all criteria 
             while (FinalArray.Sum() < LowBound || FinalArray.Sum() > HighBound || !OddEvenRatioGood(FinalArray))
             {
-                for (int i = 0; i < NumbersInSet; i++)
+                for (int i = 0; i < NumbersPerGroup; i++)
                 {
                     num = GetNumFromMinToMax(Min, Max, Bits); //get next random number
                     while (Array.Exists(NumArray, element => element == num)) //check to see if number is already picked, if so, try until it doesn't already exist in the array
@@ -155,5 +155,87 @@ namespace LottoGeneratorService
             return FinalArray;
         }
 
+        public static Int32[] ComputeNumberSet2(int NumbersPerGroup, int Min, int Max, int Bits, decimal Divergence = 10, bool Sort = true, bool SumCheck = true, bool OECheck = true)
+        {
+            Int32[] FinalArray = new Int32[NumbersPerGroup];
+            Int32[] NumArray = new Int32[NumbersPerGroup];
+
+            Int32 total = FinalArray.Sum();
+
+            int MiddleSum = (NumbersPerGroup * Max) / 2; //compute the maximum sum for the numbers in the set, then divide by 2
+            int LowBound = Convert.ToInt32(MiddleSum * (1 - Divergence / 100)); //if, say 10%, then take 10/100 = 0.1 and subtract from 1 to get 0.9, then multiply
+            int HighBound = Convert.ToInt32(MiddleSum * (1 + Divergence / 100));//if, say 10%, then take 10/100 = 0.1 and add to 1 to get 1.1, then multiply
+            int num = 0;
+
+            if (SumCheck && OECheck)
+            {
+                //test if set of numbers is not within the boundaries or does not have a good odd/even number ratio - if true generate a set until it meets all criteria 
+                while (FinalArray.Sum() < LowBound || FinalArray.Sum() > HighBound || !OddEvenRatioGood(FinalArray))
+                {
+                    for (int i = 0; i < NumbersPerGroup; i++)
+                    {
+                        num = GetNumFromMinToMax(Min, Max, Bits); //get next random number
+                        while (Array.Exists(NumArray, element => element == num)) //check to see if number is already picked, if so, try until it doesn't already exist in the array
+                        {
+                            num = GetNumFromMinToMax(Min, Max, Bits);
+                        }
+                        NumArray[i] = num;
+                        FinalArray[i] = num;
+                    }
+                }
+            }
+            else if (SumCheck)
+            {
+                while (FinalArray.Sum() < LowBound || FinalArray.Sum() > HighBound)
+                {
+                    for (int i = 0; i < NumbersPerGroup; i++)
+                    {
+                        num = GetNumFromMinToMax(Min, Max, Bits); //get next random number
+                        while (Array.Exists(NumArray, element => element == num)) //check to see if number is already picked, if so, try until it doesn't already exist in the array
+                        {
+                            num = GetNumFromMinToMax(Min, Max, Bits);
+                        }
+                        NumArray[i] = num;
+                        FinalArray[i] = num;
+                    }
+                }
+            }
+            else if (OECheck)
+            {
+                while (!OddEvenRatioGood(FinalArray))
+                {
+                    for (int i = 0; i < NumbersPerGroup; i++)
+                    {
+                        num = GetNumFromMinToMax(Min, Max, Bits); //get next random number
+                        while (Array.Exists(NumArray, element => element == num)) //check to see if number is already picked, if so, try until it doesn't already exist in the array
+                        {
+                            num = GetNumFromMinToMax(Min, Max, Bits);
+                        }
+                        NumArray[i] = num;
+                        FinalArray[i] = num;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < NumbersPerGroup; i++)
+                {
+                    num = GetNumFromMinToMax(Min, Max, Bits); //get next random number
+                    while (Array.Exists(NumArray, element => element == num)) //check to see if number is already picked, if so, try until it doesn't already exist in the array
+                    {
+                        num = GetNumFromMinToMax(Min, Max, Bits);
+                    }
+                    NumArray[i] = num;
+                    FinalArray[i] = num;
+                }
+            }
+
+            if (Sort)
+            {
+                Array.Sort(FinalArray);
+            }
+
+            return FinalArray;
+        }
     }
 }

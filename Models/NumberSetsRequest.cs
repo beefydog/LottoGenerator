@@ -1,16 +1,18 @@
 ﻿namespace LottoGeneratorService.Models
 {
-    public class NumberParam
+    public class NumberGroup
     {
         public int min { get; set; }
         public int max { get; set; }
-        public int numbers { get; set; }
-        public int spreadpercent { get; set; }
+        public int numbersPerGroup { get; set; }
+        public decimal divergence { get; set; }
+        public bool sumCheck { get; set; }
+        public bool oeCheck { get; set; }
     }
 
     public class SetsRequest
     {
-        public List<NumberParam> numberParams { get; set; }
+        public List<NumberGroup> numberGroups { get; set; }
         public int sets { get; set; }
     }
 }
