@@ -92,10 +92,10 @@ namespace LottoGeneratorService
                 }
                 x = sb.ToString();
 
-                //if (GenerateBoolean()) //random reversal of string
-                //{
-                //    x.Reverse();
-                //}
+                if (GenerateBoolean()) //random reversal of string
+                {
+                     x.Reverse();
+                }
 
                 sb.Clear();
                 num = Convert.ToInt32(x, 2);
