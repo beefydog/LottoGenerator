@@ -38,7 +38,6 @@ namespace LottoGeneratorService
             return retval;
         }
 
-
         public static int GetNumFromOneToN(int N, int bits)
         {
             string x = string.Empty;
@@ -60,7 +59,7 @@ namespace LottoGeneratorService
                 }
                 x = sb.ToString();
 
-                if (GenerateBoolean()) //random reversal of string
+                if (GenerateBoolean()) //random reversal of bit string
                 {
                     x.Reverse();
                 }
@@ -103,8 +102,6 @@ namespace LottoGeneratorService
             return num;
         }
 
-
-
         public static bool GenerateBoolean()
         {
             int gen1 = 0;
@@ -118,7 +115,6 @@ namespace LottoGeneratorService
                 Interlocked.Increment(ref gen2);
             return (gen1 + gen2) % 2 == 0;
         }
-
 
         public static Int32[] ComputeNumberSet(int NumbersPerGroup, int Min, int Max, int Bits, decimal divergence = 10, bool Sort = true)
         {

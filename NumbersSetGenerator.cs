@@ -59,7 +59,7 @@ namespace LottoGeneratorService
                     // int[] combinedGroups = new int[numbersPerGroup.Sum()]; //say for certain lottery, 5 numbers are 1-70,2 numbers are 1-25 and 1 number is 1-5, there will be 8 numbers total
                     int[] combinedGroups = new int[0]; //using Array Append below, so setting this as array with 0 elements
 
-                    // int ctStart = numbersPerGroup.Sum();
+                    // int ctStart = numbersPerGroup.Sum(); //for alternate method below, decided not to use
                     for (int j = 0; j < groupsCount; j++)
                     {
                         int[] NumberSet = ComputeNumberSet2(numbersPerGroup[j], min[j], max[j], bits, divergence[j], sort, sumcheck[j], oecheck[j]);
