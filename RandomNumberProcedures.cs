@@ -38,37 +38,28 @@ public static class RandomNumberProcedures
         return retval;
     }
 
-    public static int GetNumFromOneToN(int N, int bits)
-    {
-        string x = string.Empty;
-        StringBuilder sb = new();
-        int num = 0;
+    //public static int GetNumFromOneToN(int N, int bits)
+    //{
+    //    string x = string.Empty;
+    //    StringBuilder sb = new();
+    //    int num = 0;
 
-        while (num == 0 || num > N)
-        {
-            for (int i = 0; i < bits; i++)
-            {
-                if (GenerateBoolean())
-                {
-                    sb.Append('1');
-                }
-                else
-                {
-                    sb.Append('0');
-                }
-            }
-            x = sb.ToString();
+    //    while (num == 0 || num > N)
+    //    {
+    //        for (int i = 0; i < bits; i++)
+    //        {
+    //            sb.Append(GenerateBoolean() ? '1' : '0');
+    //        }
+    //        x = sb.ToString();
 
-            if (GenerateBoolean()) //random reversal of bit string
-            {
-                x.Reverse();
-            }
+    //        //random reversal of string
+    //        if (GenerateBoolean()) x.Reverse();
 
-            sb.Clear();
-            num = Convert.ToInt32(x, 2);
-        }
-        return num;
-    }
+    //        sb.Clear();
+    //        num = Convert.ToInt32(x, 2);
+    //    }
+    //    return num;
+    //}
 
     public static int GetNumFromMinToMax(int min, int max, int bits)
     {
