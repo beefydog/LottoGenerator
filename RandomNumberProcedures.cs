@@ -90,8 +90,8 @@ public static class RandomNumberProcedures
     /// <returns>bool</returns>
     public static bool GenerateBoolean()
     {
-        int gen1 = 0;
-        int gen2 = 0;
+        UInt64 gen1 = 0;
+        UInt64 gen2 = 0;
         Task.Run(() =>
         {
             while (gen1 < 1 || gen2 < 1)
