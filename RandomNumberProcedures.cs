@@ -1,7 +1,10 @@
 ﻿using System.Text;
 
 namespace LottoGeneratorService;
-
+/// <summary>
+/// some goodies for interlock random numbers 
+/// NOTE: The GenerateBoolean() method uses CPU core "noise" instead of algo  - not my idea, but an ex-EE from Intel determined that truly random numbers can be generated
+/// </summary>
 public static class RandomNumberProcedures
 {
 

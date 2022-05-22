@@ -35,7 +35,7 @@ namespace LottoGeneratorService.Controllers
             bool[] OECheck = new bool[0];
 
             //populate the arrays with the request values
-            foreach (var r in setsRequest.numberGroups)
+            foreach (var r in setsRequest.numberSet)
             {
                 Min = Min.Append(r.min).ToArray();
                 Max = Max.Append(r.max).ToArray();
@@ -57,7 +57,7 @@ namespace LottoGeneratorService.Controllers
          *************** Test JSON input ************
         **** the following is for the MEGA-MILLIONs lottery ticket
         {
-          "numberGroups": [
+          "numberSet": [
             {
               "min": 1,
               "max": 70,

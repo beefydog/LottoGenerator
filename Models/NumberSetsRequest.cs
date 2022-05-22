@@ -12,7 +12,7 @@
 
     public class SetsRequest
     {
-        public List<NumberGroup> numberGroups { get; set; }
+        public List<NumberGroup> numberSet { get; set; }
         public int sets { get; set; }
     }
 }
