@@ -2,8 +2,9 @@
 
 namespace LottoGeneratorService;
 /// <summary>
-/// some goodies for interlock random numbers 
+/// some goodies for interlock based random numbers 
 /// NOTE: The GenerateBoolean() method uses CPU core "noise" instead of algo  - not my idea, but an ex-EE from Intel determined that truly random numbers can be generated
+/// Apparently, the more cores, the more randomness, but even 2 cores are sufficiently random. This is running on a 16 core cpu, so no worries :)
 /// </summary>
 public static class RandomNumberProcedures
 {
@@ -13,7 +14,7 @@ public static class RandomNumberProcedures
         bool retval = false;
         //if (testArray.Length == 5)
         //{
-        //    // this is to determine if there are either 2 or 3 even numbers (3 or 2 odd numbers) in a five element array
+        //    // this is to determine if there are either 2 or 3 even numbers (3 or 2 odd numbers) in a five element array - KEEP for explanation
         //    int ModResult = (testArray[0] % 2) + (testArray[1] % 2) + (testArray[2] % 2) + (testArray[3] % 2) + (testArray[4] % 2);
         //    if (ModResult == 2 || ModResult == 3) //if ModResult
         //    {
@@ -41,6 +42,7 @@ public static class RandomNumberProcedures
         return retval;
     }
 
+    //basic version - keep for reference in tutorial
     //public static int GetNumFromOneToN(int N, int bits)
     //{
     //    string x = string.Empty;
@@ -64,6 +66,13 @@ public static class RandomNumberProcedures
     //    return num;
     //}
 
+    /// <summary>
+    /// Returns a single random integer between min and max via the random boolean generator
+    /// </summary>
+    /// <param name="min"></param>
+    /// <param name="max"></param>
+    /// <param name="bits">predetermined/passed by caller: the minimum # of bits required to represent max</param>
+    /// <returns>32 bit integer</returns>
     public static int GetNumFromMinToMax(int min, int max, int bits)
     {
         string x = string.Empty;
@@ -78,7 +87,7 @@ public static class RandomNumberProcedures
             }
             x = sb.ToString();
 
-            //random reversal of string
+            //random reversal of string for extra randomness - though it looks like this is not really contributing much - needs testing
             if (GenerateBoolean()) x.Reverse();
 
             sb.Clear();
@@ -88,7 +97,7 @@ public static class RandomNumberProcedures
     }
 
     /// <summary>
-    /// This randomly generates a boolean value from CPU hardware via Interlocks 
+    /// This randomly generates a boolean value (1 or 0) from CPU hardware via Interlocks 
     /// </summary>
     /// <returns>bool</returns>
     public static bool GenerateBoolean()
@@ -154,17 +163,17 @@ public static class RandomNumberProcedures
 
     /// <summary>
     /// Generates a single set of numbers - This version splits different cases for speed increases if options are/are not enabled, no point in crunching more
-    /// Needs some refactoring, but will do when I have a femptosecond of time
+    /// REFACTOR ME
     /// </summary>
-    /// <param name="NumbersPerGroup"></param>
-    /// <param name="Min"></param>
-    /// <param name="Max"></param>
-    /// <param name="Bits"></param>
-    /// <param name="Divergence"></param>
-    /// <param name="Sort"></param>
-    /// <param name="SumCheck"></param>
-    /// <param name="OECheck"></param>
-    /// <returns></returns>
+    /// <param name="NumbersPerGroup">Numbers per group (each "set" is made up of 1 or more groups)</param>
+    /// <param name="Min">lower bound integer</param>
+    /// <param name="Max">upper bound integer</param>
+    /// <param name="Bits">min bits to represent "Max" integer - precomputed by calling function</param>
+    /// <param name="Divergence">divergence from center "sums" in percent up to 50% each side</param>
+    /// <param name="Sort">True to sort integers ascending</param>
+    /// <param name="SumCheck">True to check the sums of a particular group so they fall in a statistically more likely range</param>
+    /// <param name="OECheck">True to check the odd/even ratio of numbers - (e.g. for 6 numbers - the odds are higher that 3 numbers will be even and 3 odd)</param>
+    /// <returns>Array of 32 bit integers</returns>
     public static Int32[] ComputeNumberSet2(int NumbersPerGroup, int Min, int Max, int Bits, decimal Divergence = 10, bool Sort = true, bool SumCheck = true, bool OECheck = true)
     {
         Int32[] FinalArray = new Int32[NumbersPerGroup];

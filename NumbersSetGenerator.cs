@@ -47,7 +47,9 @@ public class NumbersSetGenerator
 
         await Task.Run(() =>
         {
-            while ((Math.Pow(2, bits)) < max.Max() + 1) //use the maximum number of the request group
+            //use the maximum number of the request group 
+            // as a time saver, this will use the minimum # of bits to represent an integer (e.g. the number 25 only requires 5bits in binary 11001)
+            while ((Math.Pow(2, bits)) < max.Max() + 1)
             {
                 bits++;
             }

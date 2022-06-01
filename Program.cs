@@ -17,7 +17,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); //who doesn't like HTTPS? 
+
+//probably not a good idea to allow any, so tweek to your heart's content
 app.UseCors(options =>
 {
     options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
