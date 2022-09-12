@@ -73,7 +73,7 @@ public static class RandomNumberProcedures
     /// <param name="max"></param>
     /// <param name="bits">predetermined/passed by caller: the minimum # of bits required to represent max</param>
     /// <returns>32 bit integer</returns>
-    public static int GetNumFromMinToMax(int min, int max, int bits)
+    public  static int GetNumFromMinToMax(int min, int max, int bits)
     {
         string x = string.Empty;
         StringBuilder sb = new();

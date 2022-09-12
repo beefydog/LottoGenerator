@@ -3,7 +3,7 @@ using static LottoGeneratorService.RandomNumberProcedures;
 
 namespace LottoGeneratorService;
 
-public class NumbersSetGenerator
+public sealed class NumbersSetGenerator
 {
     //DEPRECATED
     //public static async Task<string> GenerateSets(int min, int max, int numbersPerGroup, int sets, decimal divergence)

@@ -1,6 +1,6 @@
 ﻿namespace LottoGeneratorService.Models
 {
-    public class NumberGroup
+    public sealed class NumberGroup
     {
         public int min { get; set; }
         public int max { get; set; }
@@ -10,7 +10,7 @@
         public bool oeCheck { get; set; }
     }
 
-    public class SetsRequest
+    public sealed class SetsRequest
     {
         public List<NumberGroup> numberSet { get; set; }
         public int sets { get; set; }

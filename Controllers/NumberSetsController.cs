@@ -7,7 +7,7 @@ namespace LottoGeneratorService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NumberSetsController : ControllerBase
+    public sealed class NumberSetsController : ControllerBase
     {
         private readonly ILogger<NumberSetsController> _logger;
 
