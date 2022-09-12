@@ -35,18 +35,18 @@ namespace LottoGeneratorService.Controllers
             bool[] OECheck = new bool[0];
 
             //populate the arrays with the request values
-            foreach (var r in setsRequest.numberSet)
+            foreach (var r in setsRequest.NumberSet)
             {
-                Min = Min.Append(r.min).ToArray();
-                Max = Max.Append(r.max).ToArray();
-                NumbersPerGroup = NumbersPerGroup.Append(r.numbersPerGroup).ToArray();
-                Divergence = Divergence.Append(r.divergence).ToArray();
-                SumCheck= SumCheck.Append(r.sumCheck).ToArray();
-                OECheck = OECheck.Append(r.oeCheck).ToArray();
+                Min = Min.Append(r.Min).ToArray();
+                Max = Max.Append(r.Max).ToArray();
+                NumbersPerGroup = NumbersPerGroup.Append(r.NumbersPerGroup).ToArray();
+                Divergence = Divergence.Append(r.Divergence).ToArray();
+                SumCheck = SumCheck.Append(r.SumCheck).ToArray();
+                OECheck = OECheck.Append(r.OeCheck).ToArray();
             }
             // call the procedure, get List<int[]>  a.k.a a list of integer arrays
-            
-            var nsets = await LottoGeneratorService.NumbersSetGenerator.GenerateSetsAsListOfIntArray(Min,Max,NumbersPerGroup,Divergence,setsRequest.sets,SumCheck,OECheck,true);
+
+            var nsets = await LottoGeneratorService.NumbersSetGenerator.GenerateSetsAsListOfIntArray(Min, Max, NumbersPerGroup, Divergence, setsRequest.Sets, SumCheck, OECheck, true);
 
             if (nsets.Count == 0) return NotFound();
             return Ok(nsets); //should return a json object (an array of integer arrays)

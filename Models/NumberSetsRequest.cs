@@ -2,17 +2,23 @@
 {
     public sealed class NumberGroup
     {
-        public int min { get; set; }
-        public int max { get; set; }
-        public int numbersPerGroup { get; set; }
-        public decimal divergence { get; set; }
-        public bool sumCheck { get; set; }
-        public bool oeCheck { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
+        public int NumbersPerGroup { get; set; }
+        public decimal Divergence { get; set; }
+        public bool SumCheck { get; set; }
+        public bool OeCheck { get; set; }
     }
 
     public sealed class SetsRequest
     {
-        public List<NumberGroup> numberSet { get; set; }
-        public int sets { get; set; }
+        public SetsRequest(List<NumberGroup> numberSet, int sets)
+        {
+            this.NumberSet = numberSet ?? throw new ArgumentNullException(nameof(numberSet));
+            this.Sets = sets;
+        }
+
+        public List<NumberGroup> NumberSet { get; set; }
+        public int Sets { get; set; }
     }
 }

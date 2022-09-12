@@ -6,10 +6,10 @@ namespace LottoGeneratorService;
 /// NOTE: The GenerateBoolean() method uses CPU core "noise" instead of algo  - not my idea, but an ex-EE from Intel determined that truly random numbers can be generated
 /// Apparently, the more cores, the more randomness, but even 2 cores are sufficiently random. This is running on a 16 core cpu, so no worries :)
 /// </summary>
-public static class RandomNumberProcedures
+internal static class RandomNumberProcedures
 {
 
-    public static bool OddEvenRatioGood(Int32[] testArray)
+    internal static bool OddEvenRatioGood(Int32[] testArray)
     {
         bool retval = false;
         //if (testArray.Length == 5)
@@ -73,9 +73,9 @@ public static class RandomNumberProcedures
     /// <param name="max"></param>
     /// <param name="bits">predetermined/passed by caller: the minimum # of bits required to represent max</param>
     /// <returns>32 bit integer</returns>
-    public  static int GetNumFromMinToMax(int min, int max, int bits)
+    internal static int GetNumFromMinToMax(int min, int max, int bits)
     {
-        string x = string.Empty;
+        string x;
         StringBuilder sb = new();
         int num = 0;
 
@@ -88,7 +88,7 @@ public static class RandomNumberProcedures
             x = sb.ToString();
 
             //random reversal of string for extra randomness - though it looks like this is not really contributing much - needs testing
-            if (GenerateBoolean()) x.Reverse();
+            if (GenerateBoolean()) _ = x.Reverse();
 
             sb.Clear();
             num = Convert.ToInt32(x, 2);
@@ -100,7 +100,7 @@ public static class RandomNumberProcedures
     /// This randomly generates a boolean value (1 or 0) from CPU hardware via Interlocks 
     /// </summary>
     /// <returns>bool</returns>
-    public static bool GenerateBoolean()
+    internal static bool GenerateBoolean()
     {
         UInt64 gen1 = 0;
         UInt64 gen2 = 0;
@@ -174,7 +174,7 @@ public static class RandomNumberProcedures
     /// <param name="SumCheck">True to check the sums of a particular group so they fall in a statistically more likely range</param>
     /// <param name="OECheck">True to check the odd/even ratio of numbers - (e.g. for 6 numbers - the odds are higher that 3 numbers will be even and 3 odd)</param>
     /// <returns>Array of 32 bit integers</returns>
-    public static Int32[] ComputeNumberSet2(int NumbersPerGroup, int Min, int Max, int Bits, decimal Divergence = 10, bool Sort = true, bool SumCheck = true, bool OECheck = true)
+    internal static Int32[] ComputeNumberSet2(int NumbersPerGroup, int Min, int Max, int Bits, decimal Divergence = 10, bool Sort = true, bool SumCheck = true, bool OECheck = true)
     {
         Int32[] FinalArray = new Int32[NumbersPerGroup];
         Int32[] NumArray = new Int32[NumbersPerGroup];

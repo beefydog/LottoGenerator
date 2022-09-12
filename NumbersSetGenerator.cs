@@ -3,7 +3,7 @@ using static LottoGeneratorService.RandomNumberProcedures;
 
 namespace LottoGeneratorService;
 
-public sealed class NumbersSetGenerator
+internal sealed class NumbersSetGenerator
 {
     //DEPRECATED
     //public static async Task<string> GenerateSets(int min, int max, int numbersPerGroup, int sets, decimal divergence)
@@ -39,7 +39,7 @@ public sealed class NumbersSetGenerator
     //}
 
 
-    public static async Task<List<int[]>> GenerateSetsAsListOfIntArray(int[] min, int[] max, int[] numbersPerGroup, decimal[] divergence, int sets, bool[] sumcheck, bool[] oecheck, bool sort = true)
+    internal static async Task<List<int[]>> GenerateSetsAsListOfIntArray(int[] min, int[] max, int[] numbersPerGroup, decimal[] divergence, int sets, bool[] sumcheck, bool[] oecheck, bool sort = true)
     {
         //this one takes in multiple groups as input
         int bits = 4;
