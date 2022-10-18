@@ -7,7 +7,7 @@ namespace LottoGeneratorService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public sealed class NumberSetsController : ControllerBase
+    public sealed class NumberSetsController : ControllerBase, INumberSetsController
     {
         private readonly ILogger<NumberSetsController> _logger;
 
@@ -46,7 +46,7 @@ namespace LottoGeneratorService.Controllers
             }
             // call the procedure, get List<int[]>  a.k.a a list of integer arrays
 
-            var nsets = await LottoGeneratorService.NumbersSetGenerator.GenerateSetsAsListOfIntArray(Min, Max, NumbersPerGroup, Divergence, setsRequest.Sets, SumCheck, OECheck, true);
+            var nsets = await NumbersSetGenerator.GenerateSetsAsListOfIntArray(Min, Max, NumbersPerGroup, Divergence, setsRequest.Sets, SumCheck, OECheck, true);
 
             if (nsets.Count == 0) return NotFound();
             return Ok(nsets); //should return a json object (an array of integer arrays)
